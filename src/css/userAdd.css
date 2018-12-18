@@ -1,0 +1,95 @@
+.box {
+    width: 100%;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.box .con {
+    width: 100%;
+    height: 50px;
+    margin-bottom: 20px;
+    /* background: lawngreen; */
+}
+
+.box .con>h2 {
+    width: 180px;
+    float: left;
+    font-size: 24px;
+    height: 50px;
+    line-height: 50px;
+    text-align: right;
+    margin-right: 50px;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.box .con>input {
+    width: 600px;
+    height: 50px;
+    padding: 10px 20px;
+    float: left;
+    box-sizing: border-box;
+    font-size: 20px;
+}
+
+.box .center {
+    width: 100%;
+    height: 50px;
+    margin-bottom: 20px;
+}
+
+.box .center .num,
+.sex {
+    width: 480px;
+    height: 50px;
+    float: left;
+}
+
+.box .center .num>h2,
+.box .center .sex>h2 {
+    width: 180px;
+    float: left;
+    font-size: 24px;
+    height: 50px;
+    line-height: 50px;
+    text-align: right;
+    margin-right: 50px;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.box .center .num>input {
+    width: 200px;
+    height: 50px;
+    padding: 10px 20px;
+    float: left;
+    box-sizing: border-box;
+    font-size: 20px;
+}
+
+.box .center .sex>select {
+    width: 80px;
+    height: 50px;
+    padding: 8px 5px;
+    font-size: 20px;
+    text-align: right;
+    box-sizing: border-box;
+}
+
+.box .center .sex>select>option {
+    font-size: 20px;
+    line-height: 50px;
+}
+
+.box .msg {
+    height: 300px;
+}
+
+.box .msg textarea {
+    float: left;
+    width: 600px;
+    height: 300px;
+    font-size: 20px;
+    padding: 10px 20px;
+    box-sizing: border-box;
+}
