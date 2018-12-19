@@ -17,10 +17,10 @@ jQuery(function($) {
                             <td>${item.id}</td>
                             <td>${item.name}</td>
                             <td>${item.male}</td>
-                            <td>${item.city}</td>
-                            <td>${item.signature}</td>
-                            <td>${item.job}</td>
-                            <td>${item.mark}</td>
+                            <td>${item.nickname}</td>
+                            <td>${item.phnum}</td>
+                            <td>${item.birthday}</td>
+                            <td>${item.email}</td>
                             <td>${item.time}</td>
                             <td>
                                 <i class="iconfont icon-caozuo change"></i>

@@ -17,6 +17,17 @@ Router.all('*', function(req, res, next) {
         next();
     }
 });
+
+function datatime() {
+    let date = new Date();
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+    let time = year + '-' + month + '-' + day;
+    return time;
+}
+
+
 Router.get('/', (req, res) => {
     let check = req.query.check;
     MongoClient.connect('mongodb://localhost:27017', { useNewUrlParser: true }, (err, database) => {
@@ -90,7 +101,7 @@ Router.get('/', (req, res) => {
         //检测电话号码
         if (check == 4) {
             let num = req.query.num * 1;
-            userlist.findOne({ signature: num }, (err, result) => {
+            userlist.findOne({ phnum: num }, (err, result) => {
                 if (result) {
                     res.send({
                         code: 0,
@@ -113,19 +124,51 @@ Router.get('/', (req, res) => {
 })
 
 Router.post('/', urlencodedParser, (req, res) => {
-    let { check } = req.body;
-    MongoClient.connect('mongodb://localhost:27017', (err, database) => {
-        if (err) throw err;
+    let { check, name, nickname, password, num, sex, birthday, email, msg } = req.body;
+    console.log(req.body)
+    MongoClient.connect('mongodb://localhost:27017', { useNewUrlParser: true }, (err, database) => {
+            if (err) throw err;
 
-        let db = database.db('NodeProject');
+            let db = database.db('NodeProject');
 
-        let userlist = db.collection('userlist');
+            let userlist = db.collection('userlist');
 
-        userlist.
+            userlist.find({}).sort({ id: -1 }).limit(1).toArray((err, result) => {
+                let id = result[0]['id'] * 1;
+                console.log(id);
+                userlist.insertOne({
+                    id: id + 1,
+                    name: name,
+                    nickname: nickname,
+                    password: password,
+                    phnum: num,
+                    male: sex,
+                    birthday: birthday,
+                    email: email,
+                    msg: msg,
+                    time: datatime()
+                }, (err, result) => {
+                    if (err) {
+                        res.send({
+                            code: 0,
+                            msg: err
+                        })
+                        console.log(err)
+                        return
 
+                    }
+                    res.send({
+                        code: 1,
+                        msg: '操作成功'
+                    })
+                })
+                database.close();
+            })
+
+
+        })
         // 关闭数据库，避免资源浪费
-        database.close();
-    })
+        // database.close();
 });
 
 

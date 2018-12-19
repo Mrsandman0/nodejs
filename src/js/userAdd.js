@@ -110,16 +110,26 @@ jQuery(function($) {
             let sex = $.trim($('.sex>select').val());
             let birthday = $.trim($('.birthday>input').val());
             let email = $.trim($('.email>input').val());
-            let msg = $.trim($('.msg>textarea').html());
+            let msg = $.trim($('.msg>textarea').val());
             $.ajax({
                 type: 'post',
                 async: true,
                 url: '/userlist',
                 data: {
-
+                    check: 1,
+                    name: name,
+                    nickname: nickname,
+                    password: password,
+                    num: num,
+                    sex: sex,
+                    birthday: birthday,
+                    email: email,
+                    msg: msg
                 },
                 success: function(str) {
-
+                    console.log(str)
+                    isok1 = false;
+                    location.href = '../html/userlist.html';
                 }
             })
         }
