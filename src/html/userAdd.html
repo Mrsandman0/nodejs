@@ -7,6 +7,9 @@
     <title>商品分类</title>
     <link rel="stylesheet" href="../layui/css/layui.css">
     <link rel="stylesheet" href="../css/userAdd.css">
+    <script src="../lib/common.js"></script>
+    <script src="../lib/jquery-1.10.1.min.js"></script>
+    <script src="../js/userAdd.js"></script>
 </head>
 
 <body class="layui-layout-body">
@@ -84,19 +87,23 @@
                     <div class="con uname">
                         <h2>用户名</h2>
                         <input type="text" placeholder="请输入用户名">
+                        <span></span>
                     </div>
                     <div class="con nickname">
                         <h2>昵称</h2>
                         <input type="text" placeholder="请输入昵称">
+                        <span></span>
                     </div>
-                    <div class="con nickname">
+                    <div class="con psd">
                         <h2>密码</h2>
-                        <input type="text" placeholder="请输入密码">
+                        <input type="password" placeholder="请输入密码">
+                        <span></span>
                     </div>
                     <div class="center">
                         <div class="num">
                             <h2>手机号</h2>
                             <input type="text" placeholder="请输入手机号">
+
                         </div>
                         <div class="sex">
                             <h2>性别</h2>
@@ -105,19 +112,25 @@
                                 <option value="女">女</option>
                                 <option value="不详">不详</option>
                             </select>
+                            <span></span>
                         </div>
                     </div>
                     <div class="con birthday">
                         <h2>生日</h2>
-                        <input type="text" placeholder="请输入您的生日">
+                        <input type="text" placeholder="yyyy-MM-dd">
+                        <span></span>
                     </div>
                     <div class="con email">
                         <h2>邮箱地址</h2>
                         <input type="text" placeholder="请输入您的邮箱">
+                        <span></span>
                     </div>
                     <div class="con msg">
                         <h2>备注</h2>
                         <textarea name="" id="" cols="30" rows="10"></textarea>
+                    </div>
+                    <div class="sub">
+                        <a href="javascript:;">确认</a>
                     </div>
                 </div>
             </div>

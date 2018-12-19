@@ -30,6 +30,17 @@
     float: left;
     box-sizing: border-box;
     font-size: 20px;
+    margin-right: 50px;
+}
+
+.box .con>span {
+    float: left;
+    width: 300px;
+    height: 50px;
+    font-size: 20px;
+    line-height: 50px;
+    text-align: left;
+    background: rebeccapurple;
 }
 
 .box .center {
@@ -40,7 +51,7 @@
 
 .box .center .num,
 .sex {
-    width: 480px;
+    /* width: 480px; */
     height: 50px;
     float: left;
 }
@@ -68,6 +79,7 @@
 }
 
 .box .center .sex>select {
+    float: left;
     width: 80px;
     height: 50px;
     padding: 8px 5px;
@@ -81,6 +93,17 @@
     line-height: 50px;
 }
 
+.box .center .sex>span {
+    float: left;
+    width: 300px;
+    height: 50px;
+    font-size: 20px;
+    margin-left: 140px;
+    line-height: 50px;
+    text-align: left;
+    background: rebeccapurple;
+}
+
 .box .msg {
     height: 300px;
 }
@@ -91,5 +114,29 @@
     height: 300px;
     font-size: 20px;
     padding: 10px 20px;
+    box-sizing: border-box;
+}
+
+.box .sub {
+    margin-left: 230px;
+    background: palegreen;
+    width: 60px;
+    height: 38px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+}
+
+.box .sub a {
+    display: block;
+    width: 60px;
+    height: 38px;
+    line-height: 28px;
+    text-align: center;
+    color: #fff;
+    font-size: 18px;
+    padding: 5px 10px;
     box-sizing: border-box;
 }
