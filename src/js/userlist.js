@@ -100,11 +100,11 @@ jQuery(function($) {
     })
 
 
-    // //修改
-    // $('tbody').on('click', '.change', function() {
-    //     let id = $(this).parent().parent().children().eq(1).html();
-    //     location.href = '../html/categorychange.html?id=' + id;
-    // })
+    //修改
+    $('tbody').on('click', '.change', function() {
+        let id = $(this).parent().parent().children().eq(1).html();
+        location.href = '../html/userchange.html?id=' + id;
+    })
 
     //添加
     $('.box>span').eq(0).on('click', function() {

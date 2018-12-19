@@ -123,8 +123,9 @@ Router.get('/', (req, res) => {
     })
 })
 
+//添加用户
 Router.post('/', urlencodedParser, (req, res) => {
-    let { check, name, nickname, password, num, sex, birthday, email, msg } = req.body;
+    let { check } = req.body;
     console.log(req.body)
     MongoClient.connect('mongodb://localhost:27017', { useNewUrlParser: true }, (err, database) => {
             if (err) throw err;
@@ -132,38 +133,60 @@ Router.post('/', urlencodedParser, (req, res) => {
             let db = database.db('NodeProject');
 
             let userlist = db.collection('userlist');
+            if (check == 1) {
+                let { name, nickname, password, num, sex, birthday, email, msg } = req.body;
+                userlist.find({}).sort({ id: -1 }).limit(1).toArray((err, result) => {
+                    let id = result[0]['id'] * 1;
+                    console.log(id);
+                    userlist.insertOne({
+                        id: id + 1,
+                        name: name,
+                        nickname: nickname,
+                        password: password,
+                        phnum: num,
+                        male: sex,
+                        birthday: birthday,
+                        email: email,
+                        msg: msg,
+                        time: datatime()
+                    }, (err, result) => {
+                        if (err) {
+                            res.send({
+                                code: 0,
+                                msg: err
+                            })
+                            console.log(err)
+                            return
 
-            userlist.find({}).sort({ id: -1 }).limit(1).toArray((err, result) => {
-                let id = result[0]['id'] * 1;
-                console.log(id);
-                userlist.insertOne({
-                    id: id + 1,
-                    name: name,
-                    nickname: nickname,
-                    password: password,
-                    phnum: num,
-                    male: sex,
-                    birthday: birthday,
-                    email: email,
-                    msg: msg,
-                    time: datatime()
-                }, (err, result) => {
+                        }
+                        res.send({
+                            code: 1,
+                            msg: '操作成功'
+                        })
+                    })
+                    database.close();
+                })
+            }
+
+
+            if (check == 2) {
+                let { id } = req.body;
+                userlist.findOne({ id: id * 1 }, (err, result) => {
                     if (err) {
                         res.send({
                             code: 0,
-                            msg: err
+                            msg: err,
+                            data: []
                         })
-                        console.log(err)
                         return
-
                     }
                     res.send({
                         code: 1,
-                        msg: '操作成功'
+                        msg: 'success',
+                        data: result
                     })
                 })
-                database.close();
-            })
+            }
 
 
         })
