@@ -126,7 +126,7 @@ Router.get('/', (req, res) => {
 //添加用户
 Router.post('/', urlencodedParser, (req, res) => {
     let { check } = req.body;
-    console.log(req.body)
+    // console.log(req.body)
     MongoClient.connect('mongodb://localhost:27017', { useNewUrlParser: true }, (err, database) => {
             if (err) throw err;
 
@@ -137,7 +137,7 @@ Router.post('/', urlencodedParser, (req, res) => {
                 let { name, nickname, password, num, sex, birthday, email, msg } = req.body;
                 userlist.find({}).sort({ id: -1 }).limit(1).toArray((err, result) => {
                     let id = result[0]['id'] * 1;
-                    console.log(id);
+                    // console.log(id);
                     userlist.insertOne({
                         id: id + 1,
                         name: name,
@@ -152,10 +152,10 @@ Router.post('/', urlencodedParser, (req, res) => {
                     }, (err, result) => {
                         if (err) {
                             res.send({
-                                code: 0,
-                                msg: err
-                            })
-                            console.log(err)
+                                    code: 0,
+                                    msg: err
+                                })
+                                // console.log(err)
                             return
 
                         }
@@ -185,6 +185,79 @@ Router.post('/', urlencodedParser, (req, res) => {
                         msg: 'success',
                         data: result
                     })
+                })
+            }
+
+
+            if (check == 3) {
+                let { id } = req.body;
+                userlist.findOne({ id: id * 1 }, (err, result) => {
+                    let phonenum = (result.phnum) * 1;
+                    // console.log(phonenum)
+                    let { name, nickname, password, num, sex, birthday, email, msg } = req.body;
+                    console.log(num);
+                    if (num * 1 == phonenum) {
+                        userlist.updateOne({ id: id * 1 }, {
+                            $set: {
+                                name: name,
+                                nickname: nickname,
+                                password: password,
+                                phnum: num,
+                                male: sex,
+                                birthday: birthday,
+                                email: email,
+                                msg: msg,
+                                time: datatime()
+                            }
+                        }, (err, result) => {
+                            if (err) {
+                                res.send({
+                                    code: 0,
+                                    msg: err
+                                })
+                                return
+                            }
+                            res.send({
+                                code: 1,
+                                msg: '操作成功'
+                            })
+                        })
+                    } else {
+                        userlist.find({ phnum: phonenum * 1 }, (err, result) => {
+                            if (result) {
+                                res.send({
+                                    code: 0,
+                                    msg: '电话号码已存在'
+                                })
+                            } else {
+                                userlist.updateOne({ id: id * 1 }, {
+                                    $set: {
+                                        name: name,
+                                        nickname: nickname,
+                                        password: password,
+                                        phnum: num,
+                                        male: sex,
+                                        birthday: birthday,
+                                        email: email,
+                                        msg: msg,
+                                        time: datatime()
+                                    }
+                                }, (err, result) => {
+                                    if (err) {
+                                        res.send({
+                                            code: 0,
+                                            msg: err
+                                        })
+                                        return
+                                    }
+                                    res.send({
+                                        code: 1,
+                                        msg: '操作成功'
+                                    })
+                                })
+                            }
+                        })
+                    }
                 })
             }
 

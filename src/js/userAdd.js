@@ -78,11 +78,11 @@ jQuery(function($) {
         // console.log(123)
         let birthday = $.trim($(this).val());
         if (birthday && checkReg['birth'](birthday)) {
-            $(this).next().html('生日式正确')
+            $(this).next().html('生日格式正确')
                 .css('color', 'green');
             isok5 = true;
         } else {
-            $(this).next().html('生日格式不正确')
+            $(this).next().html('生日格格式不正确')
                 .css('color', 'red');
         }
     })
@@ -92,7 +92,7 @@ jQuery(function($) {
         // console.log(123)
         let email = $.trim($(this).val());
         if (email && checkReg['email'](email)) {
-            $(this).next().html('邮箱式正确')
+            $(this).next().html('邮箱格式正确')
                 .css('color', 'green');
             isok6 = true;
         } else {
