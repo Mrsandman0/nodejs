@@ -7,6 +7,7 @@
     <title>商品分类修改</title>
     <link rel="stylesheet" href="../layui/css/layui.css">
     <link rel="stylesheet" href="../css/categorychange.css">
+    <script src="../layui/layui.js"></script>
     <script src="../lib/jquery-1.10.1.min.js"></script>
     <script src="../js/categorychange.js"></script>
 </head>
@@ -39,7 +40,7 @@
                         <dd><a href="">安全设置</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a href="">退了</a></li>
+                <li class="layui-nav-item exit"><a href="">退了</a></li>
             </ul>
         </div>
 
@@ -50,24 +51,24 @@
                     <li class="layui-nav-item layui-nav-itemed">
                         <a class="" href="javascript:;">商品管理</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="javascript:;">商品列表</a></dd>
-                            <dd><a href="javascript:;">商品分类</a></dd>
-                            <dd><a href="javascript:;">添加商品</a></dd>
+                            <dd class="glist"><a href="javascript:;">商品列表</a></dd>
+                            <dd class="gcategory"><a href="javascript:;">商品分类</a></dd>
+                            <dd class="gadd"><a href="javascript:;">添加商品</a></dd>
                             <!-- <dd><a href="">超链接</a></dd> -->
                         </dl>
                     </li>
                     <li class="layui-nav-item">
                         <a href="javascript:;">用户管理</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="javascript:;">用户列表</a></dd>
-                            <dd><a href="javascript:;">添加用户</a></dd>
+                            <dd class="ulist"><a href="javascript:;">用户列表</a></dd>
+                            <dd class="uadd"><a href="javascript:;">添加用户</a></dd>
                             <!-- <dd><a href="">超链接</a></dd> -->
                         </dl>
                     </li>
                     <li class="layui-nav-item">
                         <a href="javascript:;">订单管理</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="javascript:;">订单列表</a></dd>
+                            <dd class="olist"><a href="javascript:;">订单列表</a></dd>
                             <!-- <dd><a href="javascript:;">添加用户</a></dd> -->
                             <!-- <dd><a href="">超链接</a></dd> -->
                         </dl>
@@ -103,7 +104,7 @@
             <!-- © layui.com - 底部固定区域 -->
         </div>
     </div>
-    <script src="../layui/layui.js"></script>
+
     <script>
         //JavaScript代码区域
         layui.use('element', function() {

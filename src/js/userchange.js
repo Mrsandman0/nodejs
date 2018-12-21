@@ -121,13 +121,6 @@ jQuery(function($) {
     })
 
 
-
-
-
-
-
-
-
     $('.sub').on('click', function() {
         if (isok1 && isok2 && isok3 && isok4 && isok5 && isok6) {
             let name = $.trim($('.uname>input').val());
@@ -159,8 +152,6 @@ jQuery(function($) {
                 }
             })
         }
-
-
     })
 
 

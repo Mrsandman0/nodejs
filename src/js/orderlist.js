@@ -1,16 +1,45 @@
     jQuery(function($) {
-        if (Cookie.get('username')) {
-            $.ajax({
-                type: 'get',
-                async: true,
-                url: '/orderlist',
-                data: {
-                    check: 2
-                },
-                success: (str) => {
-                    console.log(str.data);
-                    let res = str.data.map((item) => {
-                        return `<tr style="height: 37px; text-align:center;">
+        if (!Cookie.get('username')) {
+            location.href = '../html/login.html';
+        }
+        console.log(123)
+        $('.layui-header .exit').on('click', function() {
+            console.log(1233)
+            let now = new Date();
+            now.setDate(now.getDate() - 1);
+            Cookie.set('username', Cookie.get('username'), { 'expires': now, 'path': '/' }); //
+            location.href = '../html/login.html';
+        })
+        $('.olist').addClass('layui-this');
+        $('.gcategory').on('click', function() {
+            location.href = '../html/goodsCategory.html'
+        })
+        $('.gadd').on('click', function() {
+            location.href = '../html/goodsAdd.html';
+        })
+        $('.uadd').on('click', function() {
+            location.href = '../html/userAdd.html';
+        })
+        $('.glist').on('click', function() {
+            location.href = '../html/goodslist.html';
+        })
+        $('.ulist').on('click', function() {
+            location.href = '../html/userlist.html';
+        })
+
+
+
+        $.ajax({
+            type: 'get',
+            async: true,
+            url: '/orderlist',
+            data: {
+                check: 2
+            },
+            success: (str) => {
+                console.log(str.data);
+                let res = str.data.map((item) => {
+                    return `<tr style="height: 37px; text-align:center;">
                                     <td><input type="checkbox"></td>
                                     <td>${item.id}</td>
                                     <td>${item.goodsname}</td>
@@ -22,13 +51,13 @@
                                     <td>${item.time}</td>
                                     <td><i class="iconfont icon-shanchu del"></i></td>
                                  </tr>`
-                    }).join('');
-                    $('.layui-body table tbody').html(res);
+                }).join('');
+                $('.layui-body table tbody').html(res);
 
-                }
-            })
+            }
+        })
 
-        }
+
 
         //全选  全不选
         var isok = true;

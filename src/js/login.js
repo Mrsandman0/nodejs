@@ -26,7 +26,7 @@ jQuery(function($) {
                         let now = new Date();
                         now.setDate(now.getDate() + 7);
                         Cookie.set('username', username, { 'expires': now, 'path': '/' }); //
-                        location.href = '../index.html';
+                        location.href = '../html/goodslist.html';
                     }
                 },
                 error: (XMLHttpRequest, textStatus, errorThrown) => {
