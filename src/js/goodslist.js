@@ -28,6 +28,40 @@ jQuery(function($) {
         location.href = '../html/orderlist.html';
     })
 
+    //数据渲染
+    var check = 1;
+    $.ajax({
+        type: "get",
+        url: "/goodslist",
+        data: {
+            check: check,
+            curr: 1,
+            nums: 10
+        },
+        async: true,
+        success: function(str) {
+            console.log(str)
+            let res = str.data.map(function(item) {
+                return ` <tr style="height: 37px; text-align:center;">
+                            <td><input type="checkbox"></td>
+                            <td>${item.id}</td>
+                            <td>${item.name}</td>
+                            <td>${item.catagory}</td>
+                            <td>${item.oldprice}</td>
+                            <td>${item.newprice}</td>
+                            <td>${item.num}</td>
+                            <td>${item.status}</td>
+                            <td>${item.time}</td>
+                            <td>
+                                <i class="iconfont icon-caozuo"></i>
+                                <i class="iconfont icon-shanchu"></i>
+                            </td>
+                        </tr>`
+            }).join('');
+            $('tbody').html(res);
+        }
+    });
+
 
 
 
