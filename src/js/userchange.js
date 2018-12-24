@@ -148,7 +148,12 @@ jQuery(function($) {
                     msg: msg
                 },
                 success: function(str) {
-                    console.log(str);
+                    // console.log(str);
+                    if (str.code == 1) {
+                        location.href = '../html/userlist.html';
+                    } else {
+                        alert('您输入的电话已存在');
+                    }
                 }
             })
         }

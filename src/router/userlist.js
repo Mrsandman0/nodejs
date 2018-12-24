@@ -77,7 +77,7 @@ Router.get('/', (req, res) => {
         if (check == 3) {
             let arr = JSON.parse(req.query.arr);
             let len = arr.length;
-            console.log(arr)
+            // console.log(arr)
             for (let i = 0; i < len; i++) {
                 userlist.deleteOne({ id: arr[i] * 1 }, (err, result) => {
                     // console.log(arr[i] * 1);
@@ -195,7 +195,7 @@ Router.post('/', urlencodedParser, (req, res) => {
                     let phonenum = (result.phnum) * 1;
                     // console.log(phonenum)
                     let { name, nickname, password, num, sex, birthday, email, msg } = req.body;
-                    console.log(num);
+                    // console.log(num);
                     if (num * 1 == phonenum) {
                         userlist.updateOne({ id: id * 1 }, {
                             $set: {
@@ -223,7 +223,10 @@ Router.post('/', urlencodedParser, (req, res) => {
                             })
                         })
                     } else {
-                        userlist.find({ phnum: phonenum * 1 }, (err, result) => {
+                        let { num } = req.body;
+                        console.log(num);
+                        userlist.findOne({ phnum: num * 1 }, (err, result) => {
+                            // console.log(result)
                             if (result) {
                                 res.send({
                                     code: 0,
