@@ -1,4 +1,4 @@
-jQuery(function($) {
+$(function() {
 
     if (!Cookie.get('username')) {
         location.href = '../html/login.html';
