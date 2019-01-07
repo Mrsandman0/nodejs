@@ -69,6 +69,49 @@ Router.get('/', (req, res) => {
                 database.close();
             })
         }
+        //删除单个
+        if (check == 4) {
+            let id = (req.query.id) * 1;
+            // console.log(id)
+            goodslist.deleteOne({ id: id }, (err, result) => {
+                if (err) {
+                    res.send({
+                        code: 0,
+                        msg: err
+                    })
+                    return
+                }
+                res.send({
+                    code: 1,
+                    msg: '删除成功'
+                })
+            })
+        }
+
+        //删除多个
+        if (check == 3) {
+            let arr = JSON.parse(req.query.arr);
+            let len = arr.length;
+            // console.log(arr)
+            for (let i = 0; i < len; i++) {
+                goodslist.deleteOne({ id: arr[i] * 1 }, (err, result) => {
+                    // console.log(arr[i] * 1);
+                    if (err) {
+                        res.send({
+                            code: 0,
+                            msg: err
+                        })
+                        return
+                    }
+                    if (i == len - 1) {
+                        res.send({
+                            code: 1,
+                            msg: '删除成功'
+                        })
+                    }
+                })
+            }
+        }
     })
 });
 
