@@ -12,29 +12,35 @@ Router.get('/', (req, res) => {
     // console.log(nums)
 
     // let { username, password } = req.body;
-    MongoClient.connect('mongodb://localhost:27017', (err, database) => {
+    MongoClient.connect('mongodb://localhost:27017', { useNewUrlParser: true }, (err, database) => {
         if (err) throw err;
         let db = database.db('NodeProject');
         let { curr, nums } = req.query;
         let goodslist = db.collection('goodslist');
-        if (check == 1) {
-            goodslist.find().sort({ "ID": 1 }).skip((curr - 1) * nums).limit(nums * 1).toArray((err, result) => {
-                // result：数据查询结果
-                if (err) {
+        goodslist.find().count((err, result) => {
+            let count = result;
+            console.log(count)
+            if (check == 1) {
+                goodslist.find().sort({ "ID": 1 }).skip((curr - 1) * nums).limit(nums * 1).toArray((err, result) => {
+                    // result：数据查询结果
+                    if (err) {
+                        res.send({
+                            code: 0,
+                            msg: err,
+                            data: []
+                        })
+                        return
+                    }
                     res.send({
-                        code: 0,
-                        msg: err,
-                        data: []
-                    })
-                    return
-                }
-                res.send({
-                    code: 1,
-                    msg: 'success',
-                    data: result
+                        count: count,
+                        code: 1,
+                        msg: 'success',
+                        data: result
+                    });
                 });
-            });
-        }
+            }
+            database.close();
+        });
 
 
         // 通过 db.myCollection.find().sort({"ID":1}).skip(10).limit(10)
@@ -70,7 +76,7 @@ Router.get('/', (req, res) => {
         // });
 
         // 关闭数据库，避免资源浪费
-        database.close();
+
     })
 });
 

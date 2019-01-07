@@ -21,15 +21,15 @@
             <div class="layui-logo">博库网后台管理系统</div>
             <!-- 头部区域（可配合layui已有的水平导航） -->
             <ul class="layui-nav layui-layout-left">
-                <li class="layui-nav-item"><a href="">控制台</a></li>
-                <li class="layui-nav-item"><a href="">商品管理</a></li>
-                <li class="layui-nav-item"><a href="">用户</a></li>
+                <li class="layui-nav-item"><a href="javascript:;">控制台</a></li>
+                <li class="layui-nav-item"><a href="javascript:;">商品管理</a></li>
+                <li class="layui-nav-item"><a href="javascript:;">用户</a></li>
                 <li class="layui-nav-item">
                     <a href="javascript:;">其它系统</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="">邮件管理</a></dd>
-                        <dd><a href="">消息管理</a></dd>
-                        <dd><a href="">授权管理</a></dd>
+                        <dd><a href="javascript:;">邮件管理</a></dd>
+                        <dd><a href="javascript:;">消息管理</a></dd>
+                        <dd><a href="javascript:;">授权管理</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -39,11 +39,11 @@
                         <img src="http://t.cn/RCzsdCq" class="layui-nav-img"> 吴二狗
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a href="">基本资料</a></dd>
-                        <dd><a href="">安全设置</a></dd>
+                        <dd><a href="javascript:;">基本资料</a></dd>
+                        <dd><a href="javascript:;">安全设置</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item exit"><a href="">退了</a></li>
+                <li class="layui-nav-item exit"><a href="javascript:;">退了</a></li>
             </ul>
         </div>
 
@@ -88,6 +88,16 @@
                 <div class="box">
                     <span><a href="javascript:;"><i class="iconfont icon-tianjia-"></i>添加</a></span>
                     <span><a href="javascript:;"><i class="iconfont icon-shanchu"></i>删除</a></span>
+                    <input id="myCar" list="cars" style="margin-left:50px;" />
+                    <datalist id="cars">
+                        <option value="武侠小说">
+                        <option value="诗歌散文">
+                        <option value="青春文学">
+                        <option value="文集理论">
+                    </datalist>
+                    <a href="javascript:;">搜索</a>
+                    <input type="text">
+                    <a href="javascript:;">查询</a>
                 </div>
                 <table border="1" width="100%">
                     <thead>
@@ -147,11 +157,11 @@
                     <div class="fr">
                         <span class="fl prev">上一页</span>
                         <ul class="fl">
-                            <li class="li_active">1</li>
+                            <!-- <li class="li_active">1</li>
                             <li>2</li>
                             <li>3</li>
                             <li>4</li>
-                            <li>5</li>
+                            <li>5</li> -->
                         </ul>
                         <span class="fl next">下一页</span>
                     </div>

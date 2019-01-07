@@ -27,6 +27,42 @@
     color: white;
 }
 
+.box>input {
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    display: inline-block;
+    width: 200px;
+    height: 40px;
+    padding: 5px 8px;
+    border: 1px solid #d8d8d8;
+    text-align: left;
+    font-size: 18px;
+    /* line-height: 30px; */
+    box-sizing: border-box;
+}
+
+.box>a {
+    display: inline-block;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    display: inline-block;
+    width: 100px;
+    height: 40px;
+    text-align: center;
+    background: turquoise;
+    font-size: 20px;
+    line-height: 40px;
+    color: #fff;
+    margin-left: 15px;
+    margin-right: 50px;
+}
+
 .layui-body table>thead .top,
 .down {
     display: block;

@@ -99,7 +99,6 @@ Router.get('/', (req, res) => {
         //添加数据
         if (check == 5) {
             let { name, msg } = req.query;
-
             console.log(req.query);
             goodsCategory.find({}).sort({ id: -1 }).limit(1).toArray((err, result) => {
                 // console.log(result);
@@ -116,7 +115,6 @@ Router.get('/', (req, res) => {
                             msg: err
                         })
                         return
-
                     }
                     res.send({
                         code: 1,
@@ -124,8 +122,6 @@ Router.get('/', (req, res) => {
                     })
                 })
             });
-
-
         }
 
     })
