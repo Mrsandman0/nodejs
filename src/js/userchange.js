@@ -1,6 +1,6 @@
 jQuery(function($) {
     let id = (location.search).slice(1).split('=')[1];
-    console.log(id)
+    // console.log(id)
     $.ajax({
         type: 'post',
         async: true,

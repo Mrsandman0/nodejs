@@ -27,6 +27,8 @@ jQuery(function($) {
         location.href = '../html/orderlist.html';
     })
 
+    // let id = (location.search).slice(1).split('=')[1];
+
 
 
 

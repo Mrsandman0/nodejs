@@ -3,7 +3,6 @@ $(function() {
     if (!Cookie.get('username')) {
         location.href = '../html/login.html';
     }
-    console.log(123)
     $('.layui-header .exit').on('click', function() {
         console.log(1233)
         let now = new Date();
@@ -29,7 +28,6 @@ $(function() {
     })
 
     //数据渲染
-    var check = 1;
     $.ajax({
         type: "get",
         url: "/goodslist",
@@ -40,25 +38,6 @@ $(function() {
         },
         async: true,
         success: function(str) {
-            // console.log(str)
-            // let res = str.data.map(function(item) {
-            //     return ` <tr style="height: 37px; text-align:center;">
-            //                 <td><input type="checkbox"></td>
-            //                 <td>${item.id}</td>
-            //                 <td>${item.name}</td>
-            //                 <td>${item.catagory}</td>
-            //                 <td>${item.oldprice}</td>
-            //                 <td>${item.newprice}</td>
-            //                 <td>${item.num}</td>
-            //                 <td>${item.status}</td>
-            //                 <td>${item.time}</td>
-            //                 <td>
-            //                     <i class="iconfont icon-caozuo"></i>
-            //                     <i class="iconfont icon-shanchu"></i>
-            //                 </td>
-            //             </tr>`
-            // }).join('');
-            // $('tbody').html(res);
             list(str);
             //创建页数
             page = Math.ceil(str.count / 10);
@@ -78,6 +57,7 @@ $(function() {
     $('.title_down ul').on('click', 'li', function() {
         num = $(this).html();
         let content = $('#myCar').val();
+        let query = $('#dim').val();
         $('.title_down ul>li').removeClass('li_active');
         $('.title_down ul>li').eq($(this).index()).attr('class', 'li_active');
         $.ajax({
@@ -85,30 +65,13 @@ $(function() {
             url: '/goodslist',
             async: true,
             data: {
+                query: query,
                 content: content,
                 check: check,
                 curr: num,
                 nums: 10
             },
             success: function(str) {
-                // let res = str.data.map(function(item) {
-                //     return ` <tr style="height: 37px; text-align:center;">
-                //                 <td><input type="checkbox"></td>
-                //                 <td>${item.id}</td>
-                //                 <td>${item.name}</td>
-                //                 <td>${item.catagory}</td>
-                //                 <td>${item.oldprice}</td>
-                //                 <td>${item.newprice}</td>
-                //                 <td>${item.num}</td>
-                //                 <td>${item.status}</td>
-                //                 <td>${item.time}</td>
-                //                 <td>
-                //                     <i class="iconfont icon-caozuo"></i>
-                //                     <i class="iconfont icon-shanchu"></i>
-                //                 </td>
-                //             </tr>`
-                // }).join('');
-                // $('tbody').html(res);
                 list(str);
                 $('.title_down>span').html('共' + str.count + '条记录' + num + '/' + page + '页');
             }
@@ -118,7 +81,8 @@ $(function() {
     //文字下一页
 
     $('.title_down>div>.next').on('click', function() {
-        console.log(check)
+        // console.log(check)
+        let query = $('#dim').val();
         let content = $('#myCar').val();
         num++;
         if (num > page) {
@@ -130,30 +94,13 @@ $(function() {
             url: '/goodslist',
             async: true,
             data: {
+                query: query,
                 content: content,
                 check: check,
                 curr: num,
                 nums: 10
             },
             success: function(str) {
-                // let res = str.data.map(function(item) {
-                //     return ` <tr style="height: 37px; text-align:center;">
-                //                 <td><input type="checkbox"></td>
-                //                 <td>${item.id}</td>
-                //                 <td>${item.name}</td>
-                //                 <td>${item.catagory}</td>
-                //                 <td>${item.oldprice}</td>
-                //                 <td>${item.newprice}</td>
-                //                 <td>${item.num}</td>
-                //                 <td>${item.status}</td>
-                //                 <td>${item.time}</td>
-                //                 <td>
-                //                     <i class="iconfont icon-caozuo"></i>
-                //                     <i class="iconfont icon-shanchu"></i>
-                //                 </td>
-                //             </tr>`
-                // }).join('');
-                // $('tbody').html(res);
                 console.log(str);
                 list(str);
                 $('.title_down>span').html('共' + str.count + '条记录' + num + '/' + page + '页');
@@ -168,6 +115,7 @@ $(function() {
     $('.title_down>div>.prev').on('click', function() {
         console.log(num)
         let content = $('#myCar').val();
+        let query = $('#dim').val();
         num--;
         if (num < 1) {
             num = 1;
@@ -179,30 +127,13 @@ $(function() {
             url: '/goodslist',
             async: true,
             data: {
+                query: query,
                 content: content,
                 check: check,
                 curr: num,
                 nums: 10
             },
             success: function(str) {
-                // let res = str.data.map(function(item) {
-                //     return ` <tr style="height: 37px; text-align:center;">
-                //                 <td><input type="checkbox"></td>
-                //                 <td>${item.id}</td>
-                //                 <td>${item.name}</td>
-                //                 <td>${item.catagory}</td>
-                //                 <td>${item.oldprice}</td>
-                //                 <td>${item.newprice}</td>
-                //                 <td>${item.num}</td>
-                //                 <td>${item.status}</td>
-                //                 <td>${item.time}</td>
-                //                 <td>
-                //                     <i class="iconfont icon-caozuo"></i>
-                //                     <i class="iconfont icon-shanchu"></i>
-                //                 </td>
-                //             </tr>`
-                // }).join('');
-                // $('tbody').html(res);
                 list(str);
                 $('.title_down>span').html('共' + str.count + '条记录' + num + '/' + page + '页');
                 $('.title_down ul>li').removeClass('li_active');
@@ -230,7 +161,6 @@ $(function() {
                     nums: 10
                 },
                 success: function(str) {
-                    // console.log(str)
                     list(str);
                     page = Math.ceil(str.count / 10);
                     var li = '';
@@ -249,22 +179,20 @@ $(function() {
     //模糊查询
     $('.box>.query').on('click', function() {
         num = 1;
-        let content = $('#dim').val();
-        if (content) {
+        let query = $('#dim').val();
+        if (query) {
             check = 5;
-            // console.log(123)
             $.ajax({
                 type: "get",
                 url: '/goodslist',
                 async: true,
                 data: {
-                    content: content,
+                    query: query,
                     check: check,
                     curr: num,
                     nums: 10
                 },
                 success: function(str) {
-                    // console.log(str)
                     list(str);
                     page = Math.ceil(str.count / 10);
                     var li = '';
@@ -278,11 +206,6 @@ $(function() {
             })
         }
     })
-
-
-
-
-
 
 
     //表格渲染封装
@@ -299,7 +222,7 @@ $(function() {
                         <td>${item.status}</td>
                         <td>${item.time}</td>
                         <td>
-                            <i class="iconfont icon-caozuo"></i>
+                            <i class="iconfont icon-caozuo change"></i>
                             <i class="iconfont icon-shanchu del"></i>
                         </td>
                     </tr>`
@@ -310,17 +233,17 @@ $(function() {
     //全选
     var isok = true;
     $('.layui-body table>thead input').on('click', function() {
-            // console.log(isok)
-            if (isok) {
-                $(this).prop('checked', 'checked');
-                $('.layui-body table>tbody input').prop('checked', 'checked');
-            } else {
-                $(this).removeAttr('checked', 'checked');
-                $('.layui-body table>tbody input').removeAttr('checked', 'checked');
-            }
-            isok = !isok;
-        })
-        //删除单个
+        if (isok) {
+            $(this).prop('checked', 'checked');
+            $('.layui-body table>tbody input').prop('checked', 'checked');
+        } else {
+            $(this).removeAttr('checked', 'checked');
+            $('.layui-body table>tbody input').removeAttr('checked', 'checked');
+        }
+        isok = !isok;
+    })
+
+    //删除单个
     $('tbody').on('click', '.del', function() {
         let id = $(this).parent().parent().children().eq(1).html();
         let really = confirm('您确定要删除这行数据吗?');
@@ -334,10 +257,7 @@ $(function() {
                     check: 4,
                     id: id
                 },
-                success: function(str) {
-                    console.log(str)
-                        // console.log(123)
-                }
+                success: function(str) {}
             })
         }
     })
@@ -350,13 +270,11 @@ $(function() {
         if (really) {
             for (var i = $('tbody>tr').size() - 1; i >= 0; i--) {
                 if ($('tbody>tr').eq(i).find('input').prop('checked')) {
-                    // console.log(123)
                     var id = $('tbody>tr').eq(i).children().eq(1).html();
                     arr.push(id);
                     $('tbody>tr').eq(i).remove();
                 }
             }
-            // console.log(arr);
             $.ajax({
                 type: 'get',
                 async: true,
@@ -372,6 +290,11 @@ $(function() {
         }
     })
 
+    //修改
+    $('tbody').on('click', '.change', function() {
+        let id = $(this).parent().parent().children().eq(1).html();
+        location.href = '../html/goodschange.html?id=' + id;
+    })
 
 
 

@@ -7,6 +7,7 @@ const goodsRouter = require('./goodslist')
 const orderlistRouter = require('./orderlist')
 const goodsCategoryRouter = require('./goodsCategory')
 const userlistRouter = require('./userlist')
+const uploadRouter = require('./upload');
 
 let Router = express.Router();
 
@@ -18,6 +19,8 @@ Router.use('/goodslist', goodsRouter);
 Router.use('/orderlist', orderlistRouter);
 Router.use('/goodsCategory', goodsCategoryRouter);
 Router.use('/userlist', userlistRouter);
+// 上传
+Router.use('/upload', uploadRouter)
 
 // // 关于商品分类的路由
 // Router.use('/category', categoryRouter)

@@ -3,19 +3,23 @@ let Router = express.Router();
 const mongodb = require('mongodb');
 const bodyParser = require('body-parser');
 const MongoClient = mongodb.MongoClient;
-// let urlencodedParser = bodyParser.urlencoded({ extended: false });
-Router.get('/', (req, res) => {
-    // res.send('user list')
-    // console.log(req);
-    let { check } = req.query;
-    // console.log(curr)
-    // console.log(nums)
+let urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-    // let { username, password } = req.body;
+function datatime() {
+    let date = new Date();
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+    let time = year + '-' + month + '-' + day;
+    return time;
+}
+
+Router.get('/', (req, res) => {
+    let { check } = req.query;
     MongoClient.connect('mongodb://localhost:27017', { useNewUrlParser: true }, (err, database) => {
         if (err) throw err;
         let db = database.db('NodeProject');
-        let { curr, nums, content } = req.query;
+        let { curr, nums, content, query } = req.query;
         let goodslist = db.collection('goodslist');
         if (check == 1) {
             goodslist.find().count((err, result) => {
@@ -73,7 +77,6 @@ Router.get('/', (req, res) => {
         //删除单个
         if (check == 4) {
             let id = (req.query.id) * 1;
-            // console.log(id)
             goodslist.deleteOne({ id: id }, (err, result) => {
                 if (err) {
                     res.send({
@@ -93,10 +96,8 @@ Router.get('/', (req, res) => {
         if (check == 3) {
             let arr = JSON.parse(req.query.arr);
             let len = arr.length;
-            // console.log(arr)
             for (let i = 0; i < len; i++) {
                 goodslist.deleteOne({ id: arr[i] * 1 }, (err, result) => {
-                    // console.log(arr[i] * 1);
                     if (err) {
                         res.send({
                             code: 0,
@@ -116,19 +117,19 @@ Router.get('/', (req, res) => {
 
         //模糊查询
         if (check == 5) {
-            // console.log(content)
             goodslist.find({
                 $or: [
-                    { catagory: { $regex: content } },
-                    { name: { $regex: content } },
-                    { id: { $regex: content } },
-                    { newprice: { $regex: content } },
-                    { num: { $regex: content } }
+                    { catagory: { $regex: query } },
+                    { name: { $regex: query } },
+                    { id: { $regex: query } },
+                    { newprice: { $regex: query } },
+                    { num: { $regex: query } }
                 ]
             }).toArray((err, result) => {
                 let count = result.length;
                 let arr = result.slice((curr - 1) * nums, curr * nums);
-                // result： 数据查询结果
+                console.log(count)
+                    // result： 数据查询结果
                 if (err) {
                     res.send({
                         code: 0,
@@ -156,6 +157,65 @@ Router.get('/', (req, res) => {
     })
 });
 
+Router.post('/', urlencodedParser, (req, res) => {
+    let { check } = req.body;
+    MongoClient.connect('mongodb://localhost:27017', { useNewUrlParser: true }, (err, database) => {
+            if (err) throw err;
+
+            let db = database.db('NodeProject');
+
+            let goodslist = db.collection('goodslist');
+            if (check == 1) {
+                let { id, goodsname, oldpic, newpic, goodssort, goodsnum, msg } = req.body;
+                goodslist.updateOne({ id: id * 1 }, {
+                    $set: {
+                        name: goodsname,
+                        catagory: goodssort,
+                        oldprice: oldpic,
+                        newprice: newpic,
+                        num: goodsnum,
+                        msg: msg,
+                        time: datatime()
+                    }
+                }, (err, result) => {
+                    if (err) {
+                        res.send({
+                            code: 0,
+                            msg: err
+                        })
+                        return
+                    }
+                    res.send({
+                        code: 1,
+                        msg: '操作成功'
+                    })
+                })
+            }
+
+
+            if (check == 2) {
+                let { id } = req.body;
+                console.log(id);
+                goodslist.findOne({ id: id * 1 }, (err, result) => {
+                    if (err) {
+                        res.send({
+                            code: 0,
+                            msg: err,
+                            data: []
+                        })
+                        return
+                    }
+                    res.send({
+                        code: 1,
+                        msg: 'success',
+                        data: result
+                    })
+                })
+            }
+        })
+        // 关闭数据库，避免资源浪费
+        // database.close();
+});
 
 
 

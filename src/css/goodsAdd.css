@@ -1,0 +1,81 @@
+.layui-body .con {
+    display: inline-block;
+    font-size: 16px;
+    height: 30px;
+    line-height: 30px;
+    margin-right: 20px;
+    text-align: right;
+    width: 80px;
+}
+
+.goodsname>input {
+    width: 300px;
+    height: 40px;
+    padding: 5px 8px;
+    box-sizing: border-box;
+}
+
+.goodspic .oldpic {
+    float: left;
+    /* margin-right: 10px; */
+}
+
+.goodspic .oldpic>input {
+    width: 100px;
+    height: 40px;
+    padding: 5px 8px;
+    box-sizing: border-box;
+}
+
+.goodspic .newspic {
+    float: left;
+}
+
+.goodspic .newpic>input {
+    width: 100px;
+    height: 40px;
+    padding: 5px 8px;
+    box-sizing: border-box;
+    font-size: 20px;
+}
+
+.goodssort>input {
+    width: 300px;
+    height: 40px;
+    padding: 5px 8px;
+    box-sizing: border-box;
+}
+
+.goodsnum>input {
+    width: 100px;
+    height: 40px;
+    padding: 5px 8px;
+    box-sizing: border-box;
+}
+
+.goodsdescribe>textarea {
+    width: 600px;
+    height: 300px;
+    font-size: 20px;
+    padding: 10px 20px;
+    box-sizing: border-box;
+}
+
+.submit>a {
+    /*display: block;
+    */
+    width: 80px;
+    height: 48px;
+    line-height: 38px;
+    text-align: center;
+    color: #fff;
+    background: #58bc58;
+    font-size: 22px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
