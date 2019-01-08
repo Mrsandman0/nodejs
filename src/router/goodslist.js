@@ -46,6 +46,7 @@ Router.get('/', (req, res) => {
 
         // 通过 db.myCollection.find().sort({"ID":1}).skip(10).limit(10)
         // 命令，将其根据ID排序后，跳过10，查询10条，结果为10-19条的数据。
+        //搜索功能
         if (check == 2) {
             goodslist.find({ catagory: content }).toArray((err, result) => {
                 let count = result.length;
@@ -112,6 +113,46 @@ Router.get('/', (req, res) => {
                 })
             }
         }
+
+        //模糊查询
+        if (check == 5) {
+            // console.log(content)
+            goodslist.find({
+                $or: [
+                    { catagory: { $regex: content } },
+                    { name: { $regex: content } },
+                    { id: { $regex: content } },
+                    { newprice: { $regex: content } },
+                    { num: { $regex: content } }
+                ]
+            }).toArray((err, result) => {
+                let count = result.length;
+                let arr = result.slice((curr - 1) * nums, curr * nums);
+                // result： 数据查询结果
+                if (err) {
+                    res.send({
+                        code: 0,
+                        msg: err,
+                        data: []
+                    })
+                    return
+                }
+                res.send({
+                    count: count,
+                    code: 1,
+                    msg: 'success',
+                    data: arr
+                });
+
+                database.close();
+
+            })
+        }
+
+
+
+
+
     })
 });
 

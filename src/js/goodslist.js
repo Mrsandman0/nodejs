@@ -34,31 +34,31 @@ $(function() {
         type: "get",
         url: "/goodslist",
         data: {
-            check: check,
+            check: 1,
             curr: 1,
             nums: 10
         },
         async: true,
         success: function(str) {
-            console.log(str)
-                // let res = str.data.map(function(item) {
-                //     return ` <tr style="height: 37px; text-align:center;">
-                //                 <td><input type="checkbox"></td>
-                //                 <td>${item.id}</td>
-                //                 <td>${item.name}</td>
-                //                 <td>${item.catagory}</td>
-                //                 <td>${item.oldprice}</td>
-                //                 <td>${item.newprice}</td>
-                //                 <td>${item.num}</td>
-                //                 <td>${item.status}</td>
-                //                 <td>${item.time}</td>
-                //                 <td>
-                //                     <i class="iconfont icon-caozuo"></i>
-                //                     <i class="iconfont icon-shanchu"></i>
-                //                 </td>
-                //             </tr>`
-                // }).join('');
-                // $('tbody').html(res);
+            // console.log(str)
+            // let res = str.data.map(function(item) {
+            //     return ` <tr style="height: 37px; text-align:center;">
+            //                 <td><input type="checkbox"></td>
+            //                 <td>${item.id}</td>
+            //                 <td>${item.name}</td>
+            //                 <td>${item.catagory}</td>
+            //                 <td>${item.oldprice}</td>
+            //                 <td>${item.newprice}</td>
+            //                 <td>${item.num}</td>
+            //                 <td>${item.status}</td>
+            //                 <td>${item.time}</td>
+            //                 <td>
+            //                     <i class="iconfont icon-caozuo"></i>
+            //                     <i class="iconfont icon-shanchu"></i>
+            //                 </td>
+            //             </tr>`
+            // }).join('');
+            // $('tbody').html(res);
             list(str);
             //创建页数
             page = Math.ceil(str.count / 10);
@@ -154,6 +154,7 @@ $(function() {
                 //             </tr>`
                 // }).join('');
                 // $('tbody').html(res);
+                console.log(str);
                 list(str);
                 $('.title_down>span').html('共' + str.count + '条记录' + num + '/' + page + '页');
                 $('.title_down ul>li').removeClass('li_active');
@@ -245,7 +246,38 @@ $(function() {
     })
 
 
-
+    //模糊查询
+    $('.box>.query').on('click', function() {
+        num = 1;
+        let content = $('#dim').val();
+        if (content) {
+            check = 5;
+            // console.log(123)
+            $.ajax({
+                type: "get",
+                url: '/goodslist',
+                async: true,
+                data: {
+                    content: content,
+                    check: check,
+                    curr: num,
+                    nums: 10
+                },
+                success: function(str) {
+                    // console.log(str)
+                    list(str);
+                    page = Math.ceil(str.count / 10);
+                    var li = '';
+                    for (var i = 0; i < page; i++) {
+                        li += `<li>${i+1}</li>`;
+                    }
+                    $('.title_down ul').html(li);
+                    $('.title_down ul>li:first').attr('class', 'li_active'); //给第一页添加高亮
+                    $('.title_down>span').html('共' + str.count + '条记录' + '1' + '/' + page + '页');
+                }
+            })
+        }
+    })
 
 
 
@@ -339,6 +371,8 @@ $(function() {
             })
         }
     })
+
+
 
 
 
