@@ -80,7 +80,7 @@ Router.get('/', (req, res) => {
         //修改数据
         if (check == 4) {
             let { id, name, msg } = req.query;
-            console.log(req.query);
+            // console.log(req.query);
             goodsCategory.updateOne({ id: id * 1 }, { $set: { name: name, msg: msg, time: datatime() } }, (err, result) => {
                 if (err) {
                     res.send({
@@ -99,7 +99,7 @@ Router.get('/', (req, res) => {
         //添加数据
         if (check == 5) {
             let { name, msg } = req.query;
-            console.log(req.query);
+            // console.log(req.query);
             goodsCategory.find({}).sort({ id: -1 }).limit(1).toArray((err, result) => {
                 // console.log(result);
                 let id = result[0]['id'];
@@ -122,6 +122,63 @@ Router.get('/', (req, res) => {
                     })
                 })
             });
+        }
+
+
+        if (check == 6) {
+            goodsCategory.find({}, { name: 1 }).toArray((err, result) => {
+                if (err) {
+                    res.send({
+                        data: [],
+                        code: 0,
+                        msg: err
+                    })
+                    return
+                }
+                res.send({
+                    data: result,
+                    code: 1,
+                    msg: '操作成功'
+                })
+            })
+        }
+
+        if (check == 7) {
+            let { name } = req.query
+            console.log(name);
+            goodsCategory.findOne({ name }, (err, result) => {
+                console.log(result);
+                if (!result) {
+                    goodsCategory.find({}).sort({ id: -1 }).limit(1).toArray((err, result) => {
+                        // console.log(result);
+                        let id = result[0]['id'];
+                        goodsCategory.insertOne({
+                            id: id + 1,
+                            name: name,
+                            msg: '',
+                            time: datatime()
+                        }, (err, result) => {
+                            if (err) {
+                                res.send({
+                                    code: 0,
+                                    msg: err
+                                })
+                                return
+                            }
+                            res.send({
+                                code: 1,
+                                msg: '操作成功'
+                            })
+                        })
+                    });
+                } else {
+                    res.send({
+                        code: 2,
+                        msg: '存在'
+                    })
+                }
+
+            })
         }
 
     })

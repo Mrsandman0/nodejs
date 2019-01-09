@@ -189,7 +189,9 @@ Router.post('/', urlencodedParser, (req, res) => {
                         code: 1,
                         msg: '操作成功'
                     })
+                    database.close();
                 })
+
             }
 
 
@@ -210,8 +212,52 @@ Router.post('/', urlencodedParser, (req, res) => {
                         msg: 'success',
                         data: result
                     })
+                    database.close();
                 })
+
             }
+            if (check == 3) {
+                goodslist.find({}).sort({ id: -1 }).limit(1).toArray((err, result) => {
+                    let id = result[0]['id'];
+                    let { goodsname, oldpic, newpic, goodssort, goodsnum, msg } = req.body;
+                    goodslist.insertOne({
+                        id: id + 1,
+                        name: goodsname,
+                        catagory: goodssort,
+                        oldprice: oldpic,
+                        newprice: newpic,
+                        num: goodsnum,
+                        msg: msg,
+                        status: 1,
+                        time: datatime()
+                    }, (err, result) => {
+                        if (err) {
+                            res.send({
+                                    code: 0,
+                                    msg: err
+                                })
+                                // console.log(err)
+                            return
+
+                        }
+                        res.send({
+                            code: 1,
+                            msg: '操作成功'
+                        })
+
+                        database.close();
+                    })
+                })
+
+            }
+
+
+
+
+
+
+
+
         })
         // 关闭数据库，避免资源浪费
         // database.close();

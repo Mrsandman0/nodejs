@@ -28,7 +28,27 @@ jQuery(function($) {
     })
 
     let id = (location.search).slice(1).split('=')[1];
-    // console.log(id)
+
+    //商品种类渲染
+    $.ajax({
+        type: 'get',
+        url: '/goodsCategory',
+        async: true,
+        data: {
+            check: 6
+        },
+        success: function(str) {
+            console.log(str)
+            if (str.code == 1) {
+                let res = str.data.map(function(item) {
+                    return `<option value = "${item.name}" > </option>`
+                }).join('');
+                $('#books').html(res);
+                // console.log(res);
+            }
+        }
+    })
+
     $.ajax({
         type: 'post',
         async: true,
@@ -51,9 +71,6 @@ jQuery(function($) {
         }
     })
 
-    // $('#test2').on('click', function() {
-
-    // })
     var isok1 = true;
     $('.goodsname>input').on('blur', function() {
         let goodsname = $.trim($(this).val());
@@ -124,7 +141,7 @@ jQuery(function($) {
 
 
     $('.submit>a').on('click', function() {
-        console.log(123)
+        // console.log(123)
         if (isok1 && isok2 && isok3 && isok4 && isok5) {
             let goodsname = $.trim($('.goodsname>input').val());
             let oldpic = $.trim($('.oldpic>input').val());
@@ -132,30 +149,45 @@ jQuery(function($) {
             let goodssort = $.trim($('.goodssort>input').val());
             let goodsnum = $.trim($('.goodsnum>input').val());
             let msg = $.trim($('.goodsdescribe>textarea').val());
-            console.log(goodsname, oldpic, newpic, goodssort, goodsnum, msg)
+            // console.log(goodsname, oldpic, newpic, goodssort, goodsnum, msg)
             $.ajax({
-                type: 'post',
+                type: 'get',
+                url: '/goodsCategory',
                 async: true,
-                url: '/goodslist',
                 data: {
-                    check: 1,
-                    id: id,
-                    goodsname: goodsname,
-                    oldpic: oldpic,
-                    newpic: newpic,
-                    goodssort: goodssort,
-                    goodsnum: goodsnum,
-                    msg: msg
+                    check: 7,
+                    name: goodssort
                 },
                 success: function(str) {
-                    console.log(str);
-                    if (str.code == 1) {
-                        location.href = '../html/goodslist.html';
-                    } else {
-                        alert('操作失败');
+                    console.log(str)
+                    if (str.code == 1 || str.code == 2) {
+                        $.ajax({
+                            type: 'post',
+                            async: true,
+                            url: '/goodslist',
+                            data: {
+                                check: 1,
+                                id: id,
+                                goodsname: goodsname,
+                                oldpic: oldpic,
+                                newpic: newpic,
+                                goodssort: goodssort,
+                                goodsnum: goodsnum,
+                                msg: msg
+                            },
+                            success: function(str) {
+                                // console.log(str);
+                                if (str.code == 1) {
+                                    location.href = '../html/goodslist.html';
+                                } else {
+                                    alert('操作失败');
+                                }
+                            }
+                        })
                     }
                 }
             })
+
         }
     })
 

@@ -27,7 +27,25 @@ $(function() {
         location.href = '../html/orderlist.html';
     })
 
-    //数据渲染
+    //搜索渲染
+    $.ajax({
+            type: 'get',
+            url: '/goodsCategory',
+            async: true,
+            data: {
+                check: 6
+            },
+            success: function(str) {
+                if (str.code == 1) {
+                    let res = str.data.map(function(item) {
+                        return `<option value = "${item.name}" > </option>`
+                    }).join('');
+                    $('#cars').html(res);
+                    // console.log(res);
+                }
+            }
+        })
+        // 数据渲染
     $.ajax({
         type: "get",
         url: "/goodslist",
@@ -50,6 +68,9 @@ $(function() {
             $('.title_down>span').html('共' + str.count + '条记录' + '1' + '/' + page + '页');
         }
     });
+
+
+
     var num = 1;
     var check = 1;
     var page = 1;
@@ -296,7 +317,10 @@ $(function() {
         location.href = '../html/goodschange.html?id=' + id;
     })
 
-
+    //添加
+    $('.box>span').eq(0).on('click', function() {
+        location.href = '../html/goodsAdd.html';
+    })
 
 
 })
