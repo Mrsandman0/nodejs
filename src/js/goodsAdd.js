@@ -117,6 +117,7 @@ jQuery(function($) {
     $('.submit>a').on('click', function() {
         // console.log(123)
         if (isok1 && isok2 && isok3 && isok4 && isok5) {
+            isok1 = false;
             let goodsname = $.trim($('.goodsname>input').val());
             let oldpic = $.trim($('.oldpic>input').val());
             let newpic = $.trim($('.newpic>input').val());
@@ -161,6 +162,8 @@ jQuery(function($) {
             })
 
 
+        } else {
+            alert('请输入完整信息')
         }
     })
 

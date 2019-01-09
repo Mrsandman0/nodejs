@@ -218,10 +218,10 @@ Router.post('/', urlencodedParser, (req, res) => {
             }
             if (check == 3) {
                 goodslist.find({}).sort({ id: -1 }).limit(1).toArray((err, result) => {
-                    let id = result[0]['id'];
+                    let id = result[0]['id'] * 1;
                     let { goodsname, oldpic, newpic, goodssort, goodsnum, msg } = req.body;
                     goodslist.insertOne({
-                        id: id + 1,
+                        id: String(id + 1),
                         name: goodsname,
                         catagory: goodssort,
                         oldprice: oldpic,
