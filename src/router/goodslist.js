@@ -76,7 +76,7 @@ Router.get('/', (req, res) => {
         }
         //删除单个
         if (check == 4) {
-            let id = (req.query.id) * 1;
+            let id = (req.query.id);
             goodslist.deleteOne({ id: id }, (err, result) => {
                 if (err) {
                     res.send({
@@ -97,7 +97,7 @@ Router.get('/', (req, res) => {
             let arr = JSON.parse(req.query.arr);
             let len = arr.length;
             for (let i = 0; i < len; i++) {
-                goodslist.deleteOne({ id: arr[i] * 1 }, (err, result) => {
+                goodslist.deleteOne({ id: arr[i] }, (err, result) => {
                     if (err) {
                         res.send({
                             code: 0,
@@ -167,7 +167,7 @@ Router.post('/', urlencodedParser, (req, res) => {
             let goodslist = db.collection('goodslist');
             if (check == 1) {
                 let { id, goodsname, oldpic, newpic, goodssort, goodsnum, msg } = req.body;
-                goodslist.updateOne({ id: id * 1 }, {
+                goodslist.updateOne({ id: id }, {
                     $set: {
                         name: goodsname,
                         catagory: goodssort,
@@ -198,7 +198,7 @@ Router.post('/', urlencodedParser, (req, res) => {
             if (check == 2) {
                 let { id } = req.body;
                 console.log(id);
-                goodslist.findOne({ id: id * 1 }, (err, result) => {
+                goodslist.findOne({ id: id }, (err, result) => {
                     if (err) {
                         res.send({
                             code: 0,
