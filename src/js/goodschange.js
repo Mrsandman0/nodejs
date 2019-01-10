@@ -1,13 +1,22 @@
 jQuery(function($) {
-    if (!Cookie.get('username')) {
-        location.href = '../html/login.html';
-    }
-    // console.log(123)
+    let token = localStorage.getItem("token");
+    $.ajax({
+            type: 'post',
+            headers: {
+                'token': token,
+            },
+            url: '/verify/check',
+            async: true,
+            success: function(str) {
+                console.log(str.states);
+                if (!str.states) {
+                    location.href = '../html/login.html';
+                }
+            }
+        })
+        // console.log(123)
     $('.layui-header .exit').on('click', function() {
-        console.log(1233)
-        let now = new Date();
-        now.setDate(now.getDate() - 1);
-        Cookie.set('username', Cookie.get('username'), { 'expires': now, 'path': '/' }); //
+        localStorage.removeItem("token");
         location.href = '../html/login.html';
     })
     $('.gadd').addClass('layui-this');
@@ -145,6 +154,7 @@ jQuery(function($) {
     $('.submit>a').on('click', function() {
         // console.log(123)
         if (isok1 && isok2 && isok3 && isok4 && isok5) {
+            isok1 = false;
             let goodsname = $.trim($('.goodsname>input').val());
             let oldpic = $.trim($('.oldpic>input').val());
             let newpic = $.trim($('.newpic>input').val());

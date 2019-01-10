@@ -16,7 +16,11 @@ Router.post('/', urlencodedParser, (req, res) => {
         userinf.findOne({ username, password }, (err, result) => {
             if (result) {
                 // 登录成功后，给前端发送用户表示：token
-                let encryption = token.createToken({ username, password }, 3600);
+                let encryption = token.createToken({
+                    username: username,
+                    password: password
+                }, 600);
+                // console.log(encryption);
                 res.send({
                     code: 1,
                     data: encryption,
@@ -33,6 +37,17 @@ Router.post('/', urlencodedParser, (req, res) => {
 
     })
 
+})
+
+Router.post('/check', urlencodedParser, (req, res) => {
+    let check = req.headers.token;
+    console.log(typeof check)
+    res.send({
+            states: token.checkToken(check)
+        })
+        // if (token.checkToken(check)) {
+        //     console.log(token.checkToken(check))
+        // }
 })
 
 

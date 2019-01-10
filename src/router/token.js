@@ -1,6 +1,6 @@
-let crypto = require("crypto");
+var crypto = require("crypto");
 // 把用户名和密码转为一段乱码
-let token = {
+var token = {
     // 加密
     createToken: function(obj, timeout) {
         //后来加的时效性  token在30内都是有效的

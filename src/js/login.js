@@ -22,6 +22,19 @@ jQuery(function($) {
                 },
                 success: function(str) {
                     console.log(str);
+                    if (str.code == 1) {
+                        let token = str.data;
+
+                        localStorage.setItem("token", token);
+                        // let now = new Date();
+                        // now.setDate(now.getDate() + 1);
+                        // Cookie.set('token', token, { 'expires': now, 'path': '/' });
+                        // console.log(Cookie.get('token'));
+                        location.href = '../html/goodslist.html';
+                    } else {
+                        $('.login_head>ul>li:eq(3)>p').html('用户名或密码错误');
+                    }
+
                 }
             })
 

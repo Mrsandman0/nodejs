@@ -1,6 +1,24 @@
 jQuery(function($) {
-    // let id = (location.search).slice(1).split('=')[1];
-    // console.log(id)
+    let token = localStorage.getItem("token");
+    $.ajax({
+        type: 'post',
+        headers: {
+            'token': token,
+        },
+        url: '/verify/check',
+        async: true,
+        success: function(str) {
+            console.log(str.states);
+            if (!str.states) {
+                location.href = '../html/login.html';
+            }
+        }
+    })
+    $('.layui-header .exit').on('click', function() {
+        localStorage.removeItem("token");
+        location.href = '../html/login.html';
+    })
+
     $('.down a').on('click', function() {
         let name = $('.top input').val();
         let msg = $('.mid textarea').val();

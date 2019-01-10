@@ -1,13 +1,21 @@
 jQuery(function($) {
-    if (!Cookie.get('username')) {
-        location.href = '../html/login.html';
-    }
-    console.log(123)
+    let token = localStorage.getItem("token");
+    $.ajax({
+        type: 'post',
+        headers: {
+            'token': token,
+        },
+        url: '/verify/check',
+        async: true,
+        success: function(str) {
+            console.log(str.states);
+            if (!str.states) {
+                location.href = '../html/login.html';
+            }
+        }
+    })
     $('.layui-header .exit').on('click', function() {
-        console.log(1233)
-        let now = new Date();
-        now.setDate(now.getDate() - 1);
-        Cookie.set('username', Cookie.get('username'), { 'expires': now, 'path': '/' }); //
+        localStorage.removeItem("token");
         location.href = '../html/login.html';
     })
     $('.uadd').addClass('layui-this');
@@ -36,6 +44,7 @@ jQuery(function($) {
         if (!name) {
             $(this).next().html('用户名不能为空')
                 .css('color', 'red');
+            isok1 = false;
         } else {
             $(this).next().html('用户名可用')
                 .css('color', 'green');
@@ -50,6 +59,7 @@ jQuery(function($) {
         if (!nickname) {
             $(this).next().html('昵称不能为空')
                 .css('color', 'red');
+            isok2 = false;
         } else {
             $(this).next().html('昵称可用')
                 .css('color', 'green');
@@ -68,6 +78,7 @@ jQuery(function($) {
         } else {
             $(this).next().html('密码格式不正确')
                 .css('color', 'red');
+            isok3 = false;
         }
     })
 
@@ -92,6 +103,7 @@ jQuery(function($) {
                     } else {
                         $('.sex>span').html('电话号码已被占用')
                             .css('color', 'red');
+                        isok4 = false;
                     }
 
                 }
@@ -114,6 +126,7 @@ jQuery(function($) {
         } else {
             $(this).next().html('生日格格式不正确')
                 .css('color', 'red');
+            isok5 = false;
         }
     })
 
@@ -128,11 +141,13 @@ jQuery(function($) {
         } else {
             $(this).next().html('邮箱格式不正确')
                 .css('color', 'red');
+            isok6 = false;
         }
     })
 
     $('.sub').on('click', function() {
         if (isok1 && isok2 && isok3 && isok4 && isok5 && isok6) {
+            isok1 = false;
             let name = $.trim($('.uname>input').val());
             let nickname = $.trim($('.nickname>input').val());
             let password = $.trim($('.psd>input').val());
