@@ -11,29 +11,43 @@ jQuery(function($) {
         let code = $('.login_head ul>li:eq(2) input').val();
         let numCode = $('.login_head .login_head_num').html();
         if (code.toLowerCase() == numCode.toLowerCase()) {
+            //登录加密
             $.ajax({
                 type: 'post',
                 async: 'ture',
-                url: '/login',
+                url: '/verify',
                 data: {
                     'username': username,
                     'password': password
                 },
-                success: (data) => {
-                    // let data = JSON.parse(str);
-                    console.log(data);
-                    if (data.code == 1) {
-                        let now = new Date();
-                        now.setDate(now.getDate() + 7);
-                        Cookie.set('username', username, { 'expires': now, 'path': '/' }); //
-                        location.href = '../html/goodslist.html';
-                    }
-                },
-                error: (XMLHttpRequest, textStatus, errorThrown) => {
-                    console.log(XMLHttpRequest.status + ":" + XMLHttpRequest.statusText);
+                success: function(str) {
+                    console.log(str);
                 }
-
             })
+
+            // $.ajax({
+            //     type: 'post',
+            //     async: 'ture',
+            //     url: '/login',
+            //     data: {
+            //         'username': username,
+            //         'password': password
+            //     },
+            //     success: (data) => {
+            //         // let data = JSON.parse(str);
+            //         console.log(data);
+            //         if (data.code == 1) {
+            //             let now = new Date();
+            //             now.setDate(now.getDate() + 7);
+            //             Cookie.set('username', username, { 'expires': now, 'path': '/' }); //
+            //             location.href = '../html/goodslist.html';
+            //         }
+            //     },
+            //     error: (XMLHttpRequest, textStatus, errorThrown) => {
+            //         console.log(XMLHttpRequest.status + ":" + XMLHttpRequest.statusText);
+            //     }
+
+            // })
         } else {
             $('.login_head>ul>li:eq(3)>p').html('您输入的验证码不一致');
         }

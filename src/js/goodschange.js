@@ -140,6 +140,8 @@ jQuery(function($) {
     })
 
 
+
+
     $('.submit>a').on('click', function() {
         // console.log(123)
         if (isok1 && isok2 && isok3 && isok4 && isok5) {

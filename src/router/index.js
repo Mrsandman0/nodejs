@@ -8,6 +8,7 @@ const orderlistRouter = require('./orderlist')
 const goodsCategoryRouter = require('./goodsCategory')
 const userlistRouter = require('./userlist')
 const uploadRouter = require('./upload');
+const verifyRouter = require('./verify');
 
 let Router = express.Router();
 
@@ -20,7 +21,8 @@ Router.use('/orderlist', orderlistRouter);
 Router.use('/goodsCategory', goodsCategoryRouter);
 Router.use('/userlist', userlistRouter);
 // 上传
-Router.use('/upload', uploadRouter)
+Router.use('/upload', uploadRouter);
+Router.use('/verify', verifyRouter);
 
 // // 关于商品分类的路由
 // Router.use('/category', categoryRouter)

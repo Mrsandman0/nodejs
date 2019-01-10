@@ -114,6 +114,9 @@ jQuery(function($) {
         }
     })
 
+
+
+
     $('.submit>a').on('click', function() {
         // console.log(123)
         if (isok1 && isok2 && isok3 && isok4 && isok5) {
@@ -124,42 +127,60 @@ jQuery(function($) {
             let goodssort = $.trim($('.goodssort>input').val());
             let goodsnum = $.trim($('.goodsnum>input').val());
             let msg = $.trim($('.goodsdescribe>textarea').val());
-            // console.log(goodsname, oldpic, newpic, goodssort, goodsnum, msg)
-            $.ajax({
-                type: 'get',
-                url: '/goodsCategory',
-                async: true,
-                data: {
-                    check: 7,
-                    name: goodssort
-                },
-                success: function(str) {
-                    if (str.code == 1 || str.code == 2) {
-                        $.ajax({
-                            type: 'post',
-                            async: true,
-                            url: '/goodslist',
-                            data: {
-                                check: 3,
-                                goodsname: goodsname,
-                                oldpic: oldpic,
-                                newpic: newpic,
-                                goodssort: goodssort,
-                                goodsnum: goodsnum,
-                                msg: msg
-                            },
-                            success: function(str) {
-                                console.log(str);
-                                if (str.code == 1) {
-                                    location.href = '../html/goodslist.html';
-                                } else {
-                                    alert('操作失败');
-                                }
+            //图片上传服务器
+            let fileNode = document.getElementById("fileNode");
+            console.log(fileNode.files);
+            let formData = new FormData();
+            formData.append("upload", fileNode.files[0]);
+            // console.log(formData)
+            let xhr = new XMLHttpRequest();
+            xhr.onload = () => {
+                // console.log(JSON.parse(xhr.responseText));
+                let res = JSON.parse(xhr.responseText)
+                if (res.code == 1) {
+                    let path = res.data.path;
+                    $.ajax({
+                        type: 'get',
+                        url: '/goodsCategory',
+                        async: true,
+                        data: {
+                            check: 7,
+                            name: goodssort
+                        },
+                        success: function(str) {
+                            if (str.code == 1 || str.code == 2) {
+                                $.ajax({
+                                    type: 'post',
+                                    async: true,
+                                    url: '/goodslist',
+                                    data: {
+                                        check: 3,
+                                        goodsname: goodsname,
+                                        oldpic: oldpic,
+                                        newpic: newpic,
+                                        goodssort: goodssort,
+                                        goodsnum: goodsnum,
+                                        msg: msg,
+                                        path: path
+                                    },
+                                    success: function(str) {
+                                        console.log(str);
+                                        if (str.code == 1) {
+                                            location.href = '../html/goodslist.html';
+                                        } else {
+                                            alert('操作失败');
+                                        }
+                                    }
+                                })
                             }
-                        })
-                    }
+                        }
+                    })
                 }
-            })
+            }
+            xhr.open('post', '/upload', true);
+            xhr.send(formData)
+
+
 
 
         } else {

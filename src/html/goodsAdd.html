@@ -116,6 +116,26 @@
                     <input type="text">
                     <span></span>
                 </div>
+                <div>
+                    <img id="img" src="" height="100" alt="Image preview..." style="margin-bottom:15px;">
+                </div>
+                <input type="file" id="fileNode" name="upload" onchange="previewFile()" style="margin-bottom:25px;">
+                <script>
+                    function previewFile(e) {
+                        var e = e || window.event;
+                        var preview = document.querySelector('#img');
+                        var file = e.target.files[0];
+                        var reader = new FileReader();
+                        reader.onload = function() {
+                            preview.src = reader.result;
+                        }
+                        if (file) {
+                            reader.readAsDataURL(file);
+                        } else {
+                            preview.src = "";
+                        }
+                    }
+                </script>
                 <!-- <div class="layui-upload " style="margin-bottom:25px; ">
                     <blockquote id="goodspic " class="layui-elem-quote layui-quote-nm " style="margin-top: 10px;margin-bottom:25px; ">
                         预览图：

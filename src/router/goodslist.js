@@ -219,7 +219,7 @@ Router.post('/', urlencodedParser, (req, res) => {
             if (check == 3) {
                 goodslist.find({}).sort({ id: -1 }).limit(1).toArray((err, result) => {
                     let id = result[0]['id'] * 1;
-                    let { goodsname, oldpic, newpic, goodssort, goodsnum, msg } = req.body;
+                    let { goodsname, oldpic, newpic, goodssort, goodsnum, msg, path } = req.body;
                     goodslist.insertOne({
                         id: String(id + 1),
                         name: goodsname,
@@ -229,6 +229,7 @@ Router.post('/', urlencodedParser, (req, res) => {
                         num: goodsnum,
                         msg: msg,
                         status: 1,
+                        imgurl: path,
                         time: datatime()
                     }, (err, result) => {
                         if (err) {
