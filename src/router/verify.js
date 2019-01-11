@@ -41,7 +41,7 @@ Router.post('/', urlencodedParser, (req, res) => {
 
 Router.post('/check', urlencodedParser, (req, res) => {
     let check = req.headers.token;
-    console.log(typeof check)
+    // console.log(typeof check)
     res.send({
             states: token.checkToken(check)
         })
