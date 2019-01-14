@@ -44,23 +44,24 @@ $(function() {
 
     //搜索渲染
     $.ajax({
-            type: 'get',
-            url: '/goodsCategory',
-            async: true,
-            data: {
-                check: 6
-            },
-            success: function(str) {
-                if (str.code == 1) {
-                    let res = str.data.map(function(item) {
-                        return `<option value = "${item.name}" > </option>`
-                    }).join('');
-                    $('#cars').html(res);
-                    // console.log(res);
-                }
+        type: 'get',
+        url: '/goodsCategory',
+        async: true,
+        data: {
+            check: 6
+        },
+        success: function(str) {
+            if (str.code == 1) {
+                let res = str.data.map(function(item) {
+                    return `<option value = "${item.name}" > </option>`
+                }).join('');
+                $('#cars').html(res);
+                // console.log(res);
             }
-        })
-        // 数据渲染
+        }
+    })
+
+    // 数据渲染
     $.ajax({
         type: "get",
         url: "/goodslist",
@@ -91,6 +92,7 @@ $(function() {
     var page = 1;
     //数字页数跳转
     $('.title_down ul').on('click', 'li', function() {
+
         num = $(this).html();
         let content = $('#myCar').val();
         let query = $('#dim').val();
@@ -110,6 +112,8 @@ $(function() {
             success: function(str) {
                 list(str);
                 $('.title_down>span').html('共' + str.count + '条记录' + num + '/' + page + '页');
+                $('.layui-body table>thead input').removeAttr('checked', 'checked');
+                isok = true
             }
         })
     })
@@ -118,6 +122,7 @@ $(function() {
 
     $('.title_down>div>.next').on('click', function() {
         // console.log(check)
+
         let query = $('#dim').val();
         let content = $('#myCar').val();
         num++;
@@ -142,6 +147,8 @@ $(function() {
                 $('.title_down>span').html('共' + str.count + '条记录' + num + '/' + page + '页');
                 $('.title_down ul>li').removeClass('li_active');
                 $('.title_down ul>li').eq(num - 1).attr('class', 'li_active');
+                $('.layui-body table>thead input').removeAttr('checked', 'checked');
+                isok = true
             }
         })
 
@@ -149,7 +156,8 @@ $(function() {
 
     //文字上一页
     $('.title_down>div>.prev').on('click', function() {
-        console.log(num)
+        // console.log(num)
+
         let content = $('#myCar').val();
         let query = $('#dim').val();
         num--;
@@ -174,6 +182,8 @@ $(function() {
                 $('.title_down>span').html('共' + str.count + '条记录' + num + '/' + page + '页');
                 $('.title_down ul>li').removeClass('li_active');
                 $('.title_down ul>li').eq(num - 1).attr('class', 'li_active');
+                $('.layui-body table>thead input').removeAttr('checked', 'checked');
+                isok = true
             }
         })
 
@@ -278,6 +288,7 @@ $(function() {
         }
         isok = !isok;
     })
+
 
     //删除单个
     $('tbody').on('click', '.del', function() {
